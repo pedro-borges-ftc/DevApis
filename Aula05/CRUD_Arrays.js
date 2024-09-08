@@ -1,0 +1,1 @@
+var tarefas = ['Estudar CRUD JS','C - Create', 'R - Read', 'U - Update', 'D - Delete']
