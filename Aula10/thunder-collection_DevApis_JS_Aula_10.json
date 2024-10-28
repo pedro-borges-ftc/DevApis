@@ -1,0 +1,76 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "DevApis_JS",
+    "collectionId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+    "dateExported": "2024-10-28T18:28:23.975Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "feb173eb-b400-4350-9cc1-ff2dc61be88b",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "ViaCep",
+            "url": "https://viacep.com.br/ws/45604010/json/",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-10-28T16:46:21.570Z",
+            "modified": "2024-10-28T16:46:21.570Z",
+            "headers": []
+        },
+        {
+            "_id": "ddf41bcd-0ba7-4e86-90ea-968b96a13c28",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Soma_Body",
+            "url": "http://localhost:2024/somabody",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-10-28T16:46:56.733Z",
+            "modified": "2024-10-28T18:00:35.266Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"n1\":2,\n  \"n2\":15\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ab7f46d5-be50-4fb5-8daa-243350eadd49",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Soma_Query",
+            "url": "http://localhost:2024/somaquery?n1=2&n2=10",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-10-28T17:44:38.627Z",
+            "modified": "2024-10-28T18:02:18.294Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "n1",
+                    "value": "2",
+                    "isPath": false
+                },
+                {
+                    "name": "n2",
+                    "value": "10",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "f8a771df-92c8-4457-b52d-df91fd6ed713",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Soma_Fixa",
+            "url": "http://localhost:2024/somafixa",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-10-28T18:01:37.106Z",
+            "modified": "2024-10-28T18:02:29.453Z",
+            "headers": []
+        }
+    ],
+    "ref": "nVhgwKnddtnCnMDZKHn8WWHU4RFgYU5l4TCXG53W2sNgxLB2t25rZgCM2AxOVdSIyKDrHKZoc0YK4kJHU9Mhyw"
+}
