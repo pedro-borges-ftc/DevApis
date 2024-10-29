@@ -25,7 +25,7 @@ meuAppApis.get('/somabody', (req,res) => {
     const body = req.body 
     console.log(body)
 
-    let total = body.n1 + body.n2
+    let total = body.numero1 + body.numero2
     res.send(`O total da Soma é ${total}`)
 })
 
