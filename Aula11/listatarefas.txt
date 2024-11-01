@@ -2,6 +2,7 @@ Estudar Java Script
 Estudar MongoBd
 tarefa 4
 
-Estudar HTML
 
-tarefa 7
+
+Estudar CSS
+tarefa 8

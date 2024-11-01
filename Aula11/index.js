@@ -10,7 +10,6 @@ meuAppApis.use(bodyParser.json())
 var tarefas = []
 tarefas = lerListaTarefas()
 
-
 //C - CREATE: POST /tarefa/inserir/v1
 meuAppApis.post('/tarefa/inserir/v1', (req,res) => {
 
