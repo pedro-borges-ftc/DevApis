@@ -27,11 +27,12 @@ meuAppApis.post('/tarefa/inserir/v1', (req,res) => {
 
 //R - READ: GET /tarefa/lista/v1
 meuAppApis.get('/tarefa/lista/v1', (req,res) => {
+    tarefas = lerListaTarefas()
 
     // Mapeando o array para criar um JSON com chave 'codigo' e 'conteudo' para cada item
     const arrayDeObjetos = tarefas.map((item, index) => ({
-        codigo: index + 1,     // Aqui usamos o índice como código (pode começar do 1, se preferir)
-        conteudo: item
+        id: index + 1,     // Aqui usamos o índice como código (pode começar do 1, se preferir)
+        tarefa: item
     }));
     
     // Convertendo o array em JSON
