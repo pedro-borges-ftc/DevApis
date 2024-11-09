@@ -1,0 +1,139 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "DevApis_JS",
+    "collectionId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+    "dateExported": "2024-11-01T17:55:07.917Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "fbb1e457-9052-4cb5-bf02-4f889edef160",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Tarefa_Remover_v1",
+            "url": "http://localhost:2024/tarefa/remover/v1",
+            "method": "POST",
+            "sortNum": 3125,
+            "created": "2024-11-01T16:05:27.650Z",
+            "modified": "2024-11-01T17:37:24.043Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 5\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "83ae4eda-bb97-4180-958d-2f3d0463b861",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Tarefa_Alterar_v1",
+            "url": "http://localhost:2024/tarefa/alterar/v1",
+            "method": "POST",
+            "sortNum": 6250,
+            "created": "2024-11-01T15:39:22.980Z",
+            "modified": "2024-11-01T17:34:21.128Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 7,\n  \"tarefa\": \"Estudar CSS\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "3950d379-a5bf-4550-be10-ead4dd918dfe",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Tarefa_Lista_v1",
+            "url": "http://localhost:2024/tarefa/lista/v1",
+            "method": "GET",
+            "sortNum": 12500,
+            "created": "2024-11-01T15:28:34.888Z",
+            "modified": "2024-11-01T15:29:30.387Z",
+            "headers": []
+        },
+        {
+            "_id": "a305e982-4a6d-44e4-9625-bc965206e629",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Tarefa_Inserir_v1",
+            "url": "http://localhost:2024/tarefa/inserir/v1",
+            "method": "POST",
+            "sortNum": 25000,
+            "created": "2024-11-01T15:25:07.618Z",
+            "modified": "2024-11-01T17:26:00.273Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"tarefa\": \"tarefa 8\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ddf41bcd-0ba7-4e86-90ea-968b96a13c28",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Soma_Body",
+            "url": "http://localhost:2024/somabody",
+            "method": "GET",
+            "sortNum": 27500,
+            "created": "2024-10-28T16:46:56.733Z",
+            "modified": "2024-10-28T18:00:35.266Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"n1\":2,\n  \"n2\":15\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ab7f46d5-be50-4fb5-8daa-243350eadd49",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Soma_Query",
+            "url": "http://localhost:2024/somaquery?n1=2&n2=10",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-10-28T17:44:38.627Z",
+            "modified": "2024-10-28T18:02:18.294Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "n1",
+                    "value": "2",
+                    "isPath": false
+                },
+                {
+                    "name": "n2",
+                    "value": "10",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "f8a771df-92c8-4457-b52d-df91fd6ed713",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "localhost_Soma_Fixa",
+            "url": "http://localhost:2024/somafixa",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-10-28T18:01:37.106Z",
+            "modified": "2024-10-28T18:02:29.453Z",
+            "headers": []
+        },
+        {
+            "_id": "feb173eb-b400-4350-9cc1-ff2dc61be88b",
+            "colId": "b6bf465e-f420-49c8-834d-ea6db7236c83",
+            "containerId": "",
+            "name": "ViaCep",
+            "url": "https://viacep.com.br/ws/45604010/json/",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-10-28T16:46:21.570Z",
+            "modified": "2024-10-28T16:46:21.570Z",
+            "headers": []
+        }
+    ],
+    "ref": "nVhgwKnddtnCnMDZKHn8WedX1EzYKiwSoGaW6LAk2ojzi3xlKp1JVgvXYw5NLS3lm5Az_1gQMSC23ILj9dfFVg"
+}
