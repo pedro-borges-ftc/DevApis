@@ -22,6 +22,43 @@ meuAppApis.post('/tarefa/inserir/v2', (req,res) => {
     res.send(inserirTarefa(body.tarefa))
 })
 
+function inserirTarefa(TarefaDescricao) {
+    try {
+        // Conecta ao servidor MongoDB
+        client.connect();
+        console.log("Conectado ao servidor MongoDB!");
+
+        // Seleciona o banco de dados
+        const db = client.db(dbName);
+
+        // Seleciona a coleção de tarefas
+        const collection = db.collection(collectionName);
+
+        // Registro da tarefa a ser inserida
+        var novaTarefa = {
+            Descricao: TarefaDescricao,
+            DataInicial: new Date(),        // Data e hora atual
+            DataFinal: null,                // Data final específica
+            Status: "Fazer"                 // Status pode ser 'Fazer', 'Fazendo', 'Validar', 'Corrigir', 'Feito'
+        };
+
+        // Inserir o documento na coleção
+        const resultado = collection.insertOne(novaTarefa);
+
+        // Exibe o resultado da inserção
+        console.log('Tarefa inserida com sucesso');
+        console.log(novaTarefa)
+        return novaTarefa
+
+    } catch (err) {
+        console.error('Erro ao inserir tarefa', err);
+        return 'Erro ao inserir tarefa'
+    } finally {
+        // Fecha a conexão com o MongoDB
+        client.close();
+    }
+}
+
 //R - READ: GET /tarefa/lista/v2
 meuAppApis.get('/tarefa/lista/v2', (req,res) => {
 
@@ -68,43 +105,6 @@ meuAppApis.post('/tarefa/remover/v2', (req,res) => {
 
     res.send(`Tarefa removida com sucesso. ID: ${body.id} | Tarefa: ${tarefaRemovida}`)
 })
-
-function inserirTarefa(TarefaDescricao) {
-    try {
-        // Conecta ao servidor MongoDB
-        client.connect();
-        console.log("Conectado ao servidor MongoDB!");
-
-        // Seleciona o banco de dados
-        const db = client.db(dbName);
-
-        // Seleciona a coleção de tarefas
-        const collection = db.collection(collectionName);
-
-        // Registro da tarefa a ser inserida
-        var novaTarefa = {
-            Descricao: TarefaDescricao,
-            DataInicial: new Date(),        // Data e hora atual
-            DataFinal: null,                // Data final específica
-            Status: "Fazer"                 // Status pode ser 'Fazer', 'Fazendo', 'Validar', 'Corrigir', 'Feito'
-        };
-
-        // Inserir o documento na coleção
-        const resultado = collection.insertOne(novaTarefa);
-
-        // Exibe o resultado da inserção
-        console.log('Tarefa inserida com sucesso');
-        console.log(novaTarefa)
-        return novaTarefa
-
-    } catch (err) {
-        console.error('Erro ao inserir tarefa', err);
-        return 'Erro ao inserir tarefa'
-    } finally {
-        // Fecha a conexão com o MongoDB
-        client.close();
-    }
-}
 
 //Define a porta de escuta do servidor web
 meuAppApis.listen(2024, () =>{
