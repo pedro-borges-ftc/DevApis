@@ -1,14 +1,17 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const fs = require('fs');
+const ini = require('ini');
 const { MongoClient } = require('mongodb'); // Importa o MongoClient do driver MongoDB
 
-// URL de conexão (ajuste conforme necessário, ex: com credenciais ou outro endereço)
-const url = 'mongodb+srv://pedroborges:YUkIHZvDZEamB9bV@cluster-bdnosql.tg2ka.mongodb.net/';
-const client = new MongoClient(url);
+//Variáveis para conexão no MongoDb
+var url = ''                // URL de conexão (ajuste conforme necessário, ex: com credenciais ou outro endereço)
+var dbName = '';            // Nome da instância do banco de dados
+var collectionName = '';    // Nome da coleção
+lerDadosConexao()           // Leitura dos parâmetros para conexão no banco de dados
 
-// Nome do banco de dados e da coleção
-const dbName = 'mongodbVSCodePlaygroundDB';
-const collectionName = 'tarefas';
+//Client de conexão no MongoDB
+const client = new MongoClient(url);
 
 //meuAppApis
 const meuAppApis = express()
@@ -105,6 +108,31 @@ meuAppApis.post('/tarefa/remover/v2', (req,res) => {
 
     res.send(`Tarefa removida com sucesso. ID: ${body.id} | Tarefa: ${tarefaRemovida}`)
 })
+
+function lerDadosConexao() {
+    try {
+        // Lê o conteúdo do arquivo dbinit.ini de forma síncrona
+        const conteudoIni = fs.readFileSync('dbinit.ini', 'utf-8');
+        
+        // Faz o parsing do conteúdo para um objeto JavaScript
+        const config = ini.parse(conteudoIni);
+        
+        // Extrai os dados da seção CONFIG
+        url = config.CONFIG.url.replace(/'/g, ""); // Removendo as aspas simples
+        dbName = config.CONFIG.dbName.replace(/'/g, ""); // Removendo as aspas simples
+        collectionName = config.CONFIG.collectionName.replace(/'/g, ""); // Removendo as aspas simples
+
+        // Exibe os valores para verificação
+        console.log(`URL de Conexão: ${url}`);
+        console.log(`Nome do Banco de Dados: ${dbName}`);
+        console.log(`Nome da Coleção: ${collectionName}`);
+
+        // Retorna os valores em um objeto
+        return { url, dbName, collectionName };
+    } catch (err) {
+        console.error('Erro ao ler os dados de conexão:', err);
+    }
+}
 
 //Define a porta de escuta do servidor web
 meuAppApis.listen(2024, () =>{
