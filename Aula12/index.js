@@ -13,6 +13,9 @@ lerDadosConexao()           // Leitura dos parâmetros para conexão no banco de
 //Client de conexão no MongoDB
 const client = new MongoClient(url);
 
+//
+var arrayDeObjetos = []
+
 //meuAppApis
 const meuAppApis = express()
 meuAppApis.use(bodyParser.json())
@@ -27,16 +30,12 @@ meuAppApis.post('/tarefa/inserir/v2', (req,res) => {
 
 function inserirTarefa(TarefaDescricao) {
     try {
-        // Conecta ao servidor MongoDB
-        client.connect();
-        console.log("Conectado ao servidor MongoDB!");
-
+        client.connect()
+        console.log("Conectado ao servidor MongoDB!")
         // Seleciona o banco de dados
-        const db = client.db(dbName);
-
+        const db = client.db(dbName)
         // Seleciona a coleção de tarefas
-        const collection = db.collection(collectionName);
-
+        const collection = db.collection(collectionName)
         // Registro da tarefa a ser inserida
         var novaTarefa = {
             Descricao: TarefaDescricao,
@@ -44,38 +43,62 @@ function inserirTarefa(TarefaDescricao) {
             DataFinal: null,                // Data final específica
             Status: "Fazer"                 // Status pode ser 'Fazer', 'Fazendo', 'Validar', 'Corrigir', 'Feito'
         };
-
         // Inserir o documento na coleção
-        const resultado = collection.insertOne(novaTarefa);
-
+        const resultado = collection.insertOne(novaTarefa)
         // Exibe o resultado da inserção
-        console.log('Tarefa inserida com sucesso');
+        console.log('Tarefa inserida com sucesso')
         console.log(novaTarefa)
         return novaTarefa
-
     } catch (err) {
-        console.error('Erro ao inserir tarefa', err);
+        console.error('Erro ao inserir tarefa', err)
         return 'Erro ao inserir tarefa'
     } finally {
         // Fecha a conexão com o MongoDB
-        client.close();
+        client.close()
+        console.log("Conexão ao servidor MongoDB Encerrada!")
     }
 }
 
 //R - READ: GET /tarefa/lista/v2
-meuAppApis.get('/tarefa/lista/v2', (req,res) => {
-
-    // Mapeando o array para criar um JSON com chave 'codigo' e 'conteudo' para cada item
-    const arrayDeObjetos = tarefas.map((item, index) => ({
-        id: index + 1,     // Aqui usamos o índice como código (pode começar do 1, se preferir)
-        tarefa: item
-    }));
-    
-    // Convertendo o array em JSON
-    const jsonString = JSON.stringify(arrayDeObjetos);
-
-    res.send(jsonString)
+meuAppApis.get('/tarefa/lista/v2', (req,res) =>  {
+    res.send(consultarTarefas())
 })
+
+async function consultarTarefas() {
+    try {
+        // Conecta ao servidor MongoDB
+        await client.connect()
+        console.log("Conectado ao servidor MongoDB!")
+        // Seleciona o banco de dados
+        const db = client.db(dbName)
+        // Seleciona a coleção de tarefas
+        const collection = db.collection(collectionName)
+        // Consulta todos os documentos da coleção
+        const tarefas = await collection.find({}).toArray()
+        
+        for (let i = 0; i < tarefas.length; i++) {
+            arrayDeObjetos[i] = tarefas[i]
+            const tarefa = tarefas[i]
+            //console.log(`ID: ${tarefa._id}`)
+            //console.log(`Descrição: ${tarefa.Descricao}`)
+            //console.log(`Data Inicial: ${tarefa.DataInicial}`)
+            //console.log(`Data Final: ${tarefa.DataFinal}`)
+            //console.log(`Status: ${tarefa.Status}`)
+            //console.log('---')
+        }
+        console.log("Tarefas encontradas:")
+        console.log(arrayDeObjetos)
+         // Convertendo o array em JSON
+        const jsonTarefas = JSON.stringify(arrayDeObjetos, null, 2); // O parâmetro 'null' e '2' formata o JSON com indentação
+        return jsonTarefas
+    } catch (err) {
+        console.error("Erro ao consultar as tarefas:", err)
+    } finally {
+        // Fecha a conexão com o MongoDB
+        client.close()
+        console.log("Conexão ao servidor MongoDB Encerrada!")
+    }
+}
 
 //U - UPDATE: POST /tarefa/alterar/v2
 meuAppApis.post('/tarefa/alterar/v2', (req,res) => {
