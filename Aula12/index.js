@@ -21,16 +21,13 @@ const meuAppApis = express()
 meuAppApis.use(bodyParser.json())
 
 //C - CREATE: POST /tarefa/inserir/v2
-meuAppApis.post('/tarefa/inserir/v2', (req,res) => {
+meuAppApis.post('/tarefa/inserir/v2', async (req,res) => {
     //a variável body vai receber o corpo da requisição
     const body = req.body 
     console.log(body)
-    res.send(inserirTarefa(body.tarefa))
-})
-
-function inserirTarefa(TarefaDescricao) {
+    //
     try {
-        client.connect()
+        await client.connect()
         console.log("Conectado ao servidor MongoDB!")
         // Seleciona o banco de dados
         const db = client.db(dbName)
@@ -38,33 +35,30 @@ function inserirTarefa(TarefaDescricao) {
         const collection = db.collection(collectionName)
         // Registro da tarefa a ser inserida
         var novaTarefa = {
-            Descricao: TarefaDescricao,
+            Descricao: body.tarefa,
             DataInicial: new Date(),        // Data e hora atual
             DataFinal: null,                // Data final específica
             Status: "Fazer"                 // Status pode ser 'Fazer', 'Fazendo', 'Validar', 'Corrigir', 'Feito'
         };
         // Inserir o documento na coleção
-        const resultado = collection.insertOne(novaTarefa)
+        const resultado = await collection.insertOne(novaTarefa)
         // Exibe o resultado da inserção
         console.log('Tarefa inserida com sucesso')
         console.log(novaTarefa)
-        return novaTarefa
+        const jsonTarefas = JSON.stringify(novaTarefa, null, 2); // O parâmetro 'null' e '2' formata o JSON com indentação
+        res.send(jsonTarefas)
     } catch (err) {
         console.error('Erro ao inserir tarefa', err)
         return 'Erro ao inserir tarefa'
     } finally {
         // Fecha a conexão com o MongoDB
-        client.close()
+        await client.close()
         console.log("Conexão ao servidor MongoDB Encerrada!")
     }
-}
-
-//R - READ: GET /tarefa/lista/v2
-meuAppApis.get('/tarefa/lista/v2', (req,res) =>  {
-    res.send(consultarTarefas())
 })
 
-async function consultarTarefas() {
+//R - READ: GET /tarefa/lista/v2
+meuAppApis.get('/tarefa/lista/v2', async (req,res) => {
     try {
         // Conecta ao servidor MongoDB
         await client.connect()
@@ -79,26 +73,21 @@ async function consultarTarefas() {
         for (let i = 0; i < tarefas.length; i++) {
             arrayDeObjetos[i] = tarefas[i]
             const tarefa = tarefas[i]
-            //console.log(`ID: ${tarefa._id}`)
-            //console.log(`Descrição: ${tarefa.Descricao}`)
-            //console.log(`Data Inicial: ${tarefa.DataInicial}`)
-            //console.log(`Data Final: ${tarefa.DataFinal}`)
-            //console.log(`Status: ${tarefa.Status}`)
-            //console.log('---')
         }
         console.log("Tarefas encontradas:")
         console.log(arrayDeObjetos)
          // Convertendo o array em JSON
         const jsonTarefas = JSON.stringify(arrayDeObjetos, null, 2); // O parâmetro 'null' e '2' formata o JSON com indentação
-        return jsonTarefas
+        res.send(jsonTarefas)
     } catch (err) {
         console.error("Erro ao consultar as tarefas:", err)
+        res.send("Erro ao consultar as tarefas: /n" + err)
     } finally {
         // Fecha a conexão com o MongoDB
-        client.close()
+        await client.close()
         console.log("Conexão ao servidor MongoDB Encerrada!")
     }
-}
+})
 
 //U - UPDATE: POST /tarefa/alterar/v2
 meuAppApis.post('/tarefa/alterar/v2', (req,res) => {
