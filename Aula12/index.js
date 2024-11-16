@@ -89,38 +89,6 @@ meuAppApis.get('/tarefa/lista/v2', async (req,res) => {
     }
 })
 
-//U - UPDATE: POST /tarefa/alterar/v2
-meuAppApis.post('/tarefa/alterar/v2', (req,res) => {
-
-    //a variável body vai receber o corpo da requisição
-    const body = req.body 
-    console.log(body)
-
-    let indice = Number(body.id) - 1
-    tarefas[indice] = body.tarefa
-
-    console.log(`Tarefa alterada com sucesso. ID: ${body.id} | Tarefa: ${tarefas[body.id]}`)
-
-    res.send(`Tarefa alterada com sucesso. ID: ${body.id} | Tarefa: ${tarefas[body.id]}`)
-})
-
-//D - DELETE: POST /tarefa/remover/v2
-meuAppApis.post('/tarefa/remover/v2', (req,res) => {
-
-    //a variável body vai receber o corpo da requisição
-    const body = req.body 
-    console.log(body)
-
-    //tarefas.splice(body.id, 1);//removendo o elemento pelo índice
-    let indice = Number(body.id) - 1
-    let tarefaRemovida = tarefas[indice]
-    tarefas[indice] = ""
-
-    console.log(`Tarefa removida com sucesso. ID: ${body.id} | Tarefa: ${tarefaRemovida}`)
-
-    res.send(`Tarefa removida com sucesso. ID: ${body.id} | Tarefa: ${tarefaRemovida}`)
-})
-
 function lerDadosConexao() {
     try {
         // Lê o conteúdo do arquivo dbinit.ini de forma síncrona
