@@ -109,7 +109,6 @@ meuAppApis.post('/tarefa/alterar/v2', async (req,res) => {
             DataFinal: body.DataFinal,
             Status: body.Status
         };
-    ;
         // Define o filtro para encontrar o documento (_id)
         const filtro = { _id: new ObjectId(body._id) };
         console.log(filtro)
@@ -119,12 +118,12 @@ meuAppApis.post('/tarefa/alterar/v2', async (req,res) => {
         // Atualiza o documento
         const resultado = await collection.updateOne(filtro, novosValores);
         console.log(`Quantidade de registros alterados ${resultado.matchedCount}`)
-        if (resultado.matchedCount === 0) {
-            console.log("Nenhum documento encontrado com o ID fornecido.");
-        } else {
-            console.log("Documento atualizado com sucesso.");
-        }
         //console.log(resultado)
+        if (resultado.matchedCount === 0) {
+            console.log("Nenhuma tarefa encontrada com o ID fornecido.");
+        } else {
+            console.log("Tarefa atualizada com sucesso.");
+        }
         const jsonTarefas = JSON.stringify(tarefa, null, 2); // O parâmetro 'null' e '2' formata o JSON com indentação
         res.send(jsonTarefas)
     } catch (err) {
@@ -138,20 +137,40 @@ meuAppApis.post('/tarefa/alterar/v2', async (req,res) => {
 })
 
 //D - DELETE: POST /tarefa/remover/v2
-meuAppApis.post('/tarefa/remover/v2', (req,res) => {
-
-    //a variável body vai receber o corpo da requisição
-    const body = req.body 
-    console.log(body)
-
-    //tarefas.splice(body.id, 1);//removendo o elemento pelo índice
-    let indice = Number(body.id) - 1
-    let tarefaRemovida = tarefas[indice]
-    tarefas[indice] = ""
-
-    console.log(`Tarefa removida com sucesso. ID: ${body.id} | Tarefa: ${tarefaRemovida}`)
-
-    res.send(`Tarefa removida com sucesso. ID: ${body.id} | Tarefa: ${tarefaRemovida}`)
+meuAppApis.post('/tarefa/remover/v2', async (req,res) => {
+ //a variável body vai receber o corpo da requisição
+ const body = req.body 
+ console.log(body)
+ //
+ try {
+     await client.connect()
+     console.log("Conectado ao servidor MongoDB!")
+     // Seleciona o banco de dados
+     const db = client.db(dbName)
+     // Seleciona a coleção de tarefas
+     const collection = db.collection(collectionName)
+     // Define o filtro para encontrar o documento (_id)
+     const filtro = { _id: new ObjectId(body._id) };
+     console.log(filtro)
+     // remove o documento
+     const resultado = await collection.deleteOne(filtro);
+     console.log(`Quantidade de registros removidos ${resultado.deletedCount}`)
+     console.log(resultado)
+     if (resultado.deletedCount === 0) {
+         console.log("Nenhuma tarefa encontrado com o ID fornecido.");
+         res.send(`Nenhuma tarefa encontrado com o ID fornecido. ID: ${body._id}`)
+     } else {
+         console.log("Tarefa removida com sucesso.");
+         res.send(`Tarefa removida com sucesso. ID: ${body._id}`)
+     }
+ } catch (err) {
+     console.error("Erro ao atualizar a tarefa:", err);
+     return 'Erro ao atualizar a tarefa'
+ } finally {
+     // Fecha a conexão com o MongoDB
+     await client.close()
+     console.log("Conexão ao servidor MongoDB Encerrada!")
+ }
 })
 
 function lerDadosConexao() {
