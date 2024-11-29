@@ -90,7 +90,7 @@ meuAppApis.get('/tarefa/lista/v2', async (req,res) => {
 })
 
 //U - UPDATE: POST /tarefa/alterar/v2
-meuAppApis.post('/tarefa/alterar/v2', async (req,res) => {
+meuAppApis.put('/tarefa/alterar/v2', async (req,res) => {
     //a variável body vai receber o corpo da requisição
     const body = req.body 
     console.log(body)
@@ -137,7 +137,7 @@ meuAppApis.post('/tarefa/alterar/v2', async (req,res) => {
 })
 
 //D - DELETE: POST /tarefa/remover/v2
-meuAppApis.post('/tarefa/remover/v2', async (req,res) => {
+meuAppApis.delete('/tarefa/remover/v2', async (req,res) => {
  //a variável body vai receber o corpo da requisição
  const body = req.body 
  console.log(body)
