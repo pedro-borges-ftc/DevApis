@@ -40,6 +40,10 @@ function mostrarEndereco(dados) {
         inserirLinhaTable(`Cidade/UF`, `${dados.localidade} / ${dados.uf}`)
         //CEP
         inserirLinhaTable(`CEP`, `${dados.cep}`)
+        //DDD
+        inserirLinhaTable(`DDD`, `${dados.ddd}`)
+        //REGIÃO
+        inserirLinhaTable(`REGIÃO`, `${dados.regiao}`)
     }
 }
 
