@@ -52,9 +52,32 @@ meuAppApis.post('/tarefa/alterar/v1', (req,res) => {
     tarefas[indice] = body.tarefa
 
     salvarListaEmArquivo(tarefas);
-    console.log(`Tarefa alterada com sucesso. ID: ${body.id} | Tarefa: ${tarefas[body.id]}`)
+    console.log(`Tarefa alterada com sucesso. ID: ${body.id} | Tarefa: ${tarefas[indice]}`)
 
-    res.send(`Tarefa alterada com sucesso. ID: ${body.id} | Tarefa: ${tarefas[body.id]}`)
+    res.send(`Tarefa alterada com sucesso. ID: ${body.id} | Tarefa: ${tarefas[indice]}`)
+})
+
+//U - UPDATE: PUT /tarefa/alterar/v2
+meuAppApis.put('/tarefa/alterar/v2', (req,res) => {
+    //a variável headers vai receber os dados do cabeçalho da requisição
+    const headers = req.headers
+    console.log(headers)
+
+    //a variável query vai receber os parâmetros passados via URL
+    const query = req.query
+    console.log(query)
+
+    //a variável body vai receber o corpo da requisição
+    const body = req.body 
+    console.log(body)
+
+    let indice = Number(query.id) - 1
+    tarefas[indice] = body.tarefa
+
+    salvarListaEmArquivo(tarefas);
+    console.log(`Tarefa alterada com sucesso. ID: ${query.id} | Tarefa: ${tarefas[indice]}`)
+
+    res.send(`Tarefa alterada com sucesso. ID: ${query.id} | Tarefa: ${tarefas[indice]}`)
 })
 
 //D - DELETE: POST /tarefa/remover/v1
@@ -73,6 +96,27 @@ meuAppApis.post('/tarefa/remover/v1', (req,res) => {
     console.log(`Tarefa removida com sucesso. ID: ${body.id} | Tarefa: ${tarefaRemovida}`)
 
     res.send(`Tarefa removida com sucesso. ID: ${body.id} | Tarefa: ${tarefaRemovida}`)
+})
+
+//D - DELETE: DELETE /tarefa/remover/v2
+meuAppApis.delete('/tarefa/remover/v2', (req,res) => {
+    //a variável headers vai receber os dados do cabeçalho da requisição
+    const headers = req.headers
+    console.log(headers)
+
+    //a variável query vai receber os parâmetros passados via URL
+    const query = req.query
+    console.log(query)
+
+    //tarefas.splice(query.id, 1);//removendo o elemento pelo índice
+    let indice = Number(query.id) - 1
+    let tarefaRemovida = tarefas[indice]
+    tarefas[indice] = ""
+
+    salvarListaEmArquivo(tarefas);
+    console.log(`Tarefa removida com sucesso. ID: ${query.id} | Tarefa: ${tarefaRemovida}`)
+
+    res.send(`Tarefa removida com sucesso. ID: ${query.id} | Tarefa: ${tarefaRemovida}`)
 })
 
 function salvarListaEmArquivo(arrayDeStrings) {
@@ -102,6 +146,6 @@ function lerListaTarefas() {
 }
 
 //Define a porta de escuta do servidor web
-meuAppApis.listen(2024, () =>{
-    console.log('Servidor aberto')
+meuAppApis.listen(2025, () =>{
+    console.log('Servidor aberto na porta 2025')
 })

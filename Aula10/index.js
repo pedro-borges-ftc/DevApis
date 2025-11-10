@@ -35,6 +35,6 @@ meuAppApis.get('/somafixa', (req,res) => {
 })
 
 //Define a porta de escuta do servidor web
-meuAppApis.listen(2024, () =>{
-    console.log('Servidor aberto')
+meuAppApis.listen(2025, () =>{
+    console.log('Servidor aberto na porta 2025')
 })
