@@ -115,6 +115,6 @@ function lerDadosConexao() {
 }
 
 //Define a porta de escuta do servidor web
-meuAppApis.listen(2024, () =>{
+meuAppApis.listen(2025, () =>{
     console.log('Servidor aberto')
 })
