@@ -1,6 +1,6 @@
 var vetor = []
 
-vetor.unshift("elemento1")
+vetor.unshift("elemento1")  //adiciona um elemento no início do array
 console.log(vetor)
 
 vetor[1] = "elemento2"
