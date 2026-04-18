@@ -1,7 +1,5 @@
 var cep = '45604010'
-
 var url = `https://viacep.com.br/ws/${cep}/json/`
-
 console.log(url)
 
 fetch(url)
