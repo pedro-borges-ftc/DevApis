@@ -1,7 +1,10 @@
-function consultaCep() {
+function getTabelaCep() {
+    return document.getElementById("tblcep").querySelector("tbody")
+}
 
+function consultaCep() {
     var cep = document.getElementById('txtcep').value
-    var tblcep = document.getElementById("tblcep").querySelector("tbody")
+    var tblcep = getTabelaCep()
     tblcep.innerHTML = ''
 
     if (cep.length !== 8) {
@@ -48,6 +51,7 @@ function mostrarEndereco(dados) {
 }
 
 function inserirLinhaTable(c1, c2) {
+    let tblcep = getTabelaCep()
     let coluna1 = document.createElement('td')
     let coluna2 = document.createElement('td')
     let linha = document.createElement('tr')
