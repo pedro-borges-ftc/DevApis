@@ -10,8 +10,8 @@ meuAppApis.use(bodyParser.json())
 var tarefas = []
 tarefas = lerListaTarefas()
 
-//C - CREATE: POST /tarefa/inserir/v1
-meuAppApis.post('/tarefa/inserir/v1', (req,res) => {
+//C - CREATE: POST /tarefa/v1
+meuAppApis.post('/tarefa/v1', (req,res) => {
 
     //a variável body vai receber o corpo da requisição
     const body = req.body 
@@ -25,8 +25,8 @@ meuAppApis.post('/tarefa/inserir/v1', (req,res) => {
     res.send(`Tarefa Inserida. ID: ${tarefas.length}`)
 })
 
-//R - READ: GET /tarefa/lista/v1
-meuAppApis.get('/tarefa/lista/v1', (req,res) => {
+//R - READ: GET /tarefa/v1
+meuAppApis.get('/tarefa/v1', (req,res) => {
     tarefas = lerListaTarefas()
 
     // Mapeando o array para criar um JSON com chave 'codigo' e 'conteudo' para cada item
@@ -41,8 +41,8 @@ meuAppApis.get('/tarefa/lista/v1', (req,res) => {
     res.send(jsonString)
 })
 
-//U - UPDATE: POST /tarefa/alterar/v1
-meuAppApis.post('/tarefa/alterar/v1', (req,res) => {
+//U - UPDATE: PUT /tarefa/v1
+meuAppApis.put('/tarefa/v1', (req,res) => {
 
     //a variável body vai receber o corpo da requisição
     const body = req.body 
@@ -57,8 +57,8 @@ meuAppApis.post('/tarefa/alterar/v1', (req,res) => {
     res.send(`Tarefa alterada com sucesso. ID: ${body.id} | Tarefa: ${tarefas[indice]}`)
 })
 
-//U - UPDATE: PUT /tarefa/alterar/v2
-meuAppApis.put('/tarefa/alterar/v2', (req,res) => {
+//U - UPDATE: PUT /tarefa/v2
+meuAppApis.put('/tarefa/v2', (req,res) => {
     //a variável headers vai receber os dados do cabeçalho da requisição
     const headers = req.headers
     console.log(headers)
@@ -80,8 +80,8 @@ meuAppApis.put('/tarefa/alterar/v2', (req,res) => {
     res.send(`Tarefa alterada com sucesso. ID: ${query.id} | Tarefa: ${tarefas[indice]}`)
 })
 
-//D - DELETE: POST /tarefa/remover/v1
-meuAppApis.post('/tarefa/remover/v1', (req,res) => {
+//D - DELETE: DELETE /tarefa/v1
+meuAppApis.delete('/tarefa/v1', (req,res) => {
 
     //a variável body vai receber o corpo da requisição
     const body = req.body 
@@ -98,8 +98,8 @@ meuAppApis.post('/tarefa/remover/v1', (req,res) => {
     res.send(`Tarefa removida com sucesso. ID: ${body.id} | Tarefa: ${tarefaRemovida}`)
 })
 
-//D - DELETE: DELETE /tarefa/remover/v2
-meuAppApis.delete('/tarefa/remover/v2', (req,res) => {
+//D - DELETE: DELETE /tarefa/v2
+meuAppApis.delete('/tarefa/v2', (req,res) => {
     //a variável headers vai receber os dados do cabeçalho da requisição
     const headers = req.headers
     console.log(headers)
@@ -146,6 +146,6 @@ function lerListaTarefas() {
 }
 
 //Define a porta de escuta do servidor web
-meuAppApis.listen(2025, () =>{
-    console.log('Servidor aberto na porta 2025')
+meuAppApis.listen(2026, () =>{
+    console.log('Servidor aberto na porta 2026')
 })
