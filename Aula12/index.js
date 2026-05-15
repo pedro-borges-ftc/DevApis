@@ -2,13 +2,20 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const fs = require('fs');
 const ini = require('ini');
+const dns = require('node:dns');
 const { MongoClient } = require('mongodb'); // Importa o MongoClient do driver MongoDB
 
 //Variáveis para conexão no MongoDb
 var url = ''                // URL de conexão (ajuste conforme necessário, ex: com credenciais ou outro endereço)
 var dbName = '';            // Nome da instância do banco de dados
 var collectionName = '';    // Nome da coleção
+var dnsServers = [];
 lerDadosConexao()           // Leitura dos parâmetros para conexão no banco de dados
+
+if (dnsServers.length > 0) {
+    dns.setServers(dnsServers)
+    console.log(`Servidores DNS usados pelo Node.js: ${dns.getServers().join(', ')}`)
+}
 
 //Client de conexão no MongoDB
 const client = new MongoClient(url);
@@ -101,6 +108,9 @@ function lerDadosConexao() {
         url = config.CONFIG.url.replace(/'/g, ""); // Removendo as aspas simples
         dbName = config.CONFIG.dbName.replace(/'/g, ""); // Removendo as aspas simples
         collectionName = config.CONFIG.collectionName.replace(/'/g, ""); // Removendo as aspas simples
+        dnsServers = config.CONFIG.dnsServers
+            ? config.CONFIG.dnsServers.replace(/'/g, "").split(",").map(server => server.trim()).filter(Boolean)
+            : [];
 
         // Exibe os valores para verificação
         console.log(`URL de Conexão: ${url}`);
