@@ -20,9 +20,6 @@ if (dnsServers.length > 0) {
 //Client de conexão no MongoDB
 const client = new MongoClient(url);
 
-//
-var arrayDeObjetos = []
-
 //meuAppApis
 const meuAppApis = express()
 meuAppApis.use(bodyParser.json())
@@ -59,13 +56,14 @@ meuAppApis.post('/tarefa/inserir/v2', async (req,res) => {
         return 'Erro ao inserir tarefa'
     } finally {
         // Fecha a conexão com o MongoDB
-        await client.close()
+            await client.close()
         console.log("Conexão ao servidor MongoDB Encerrada!")
     }
 })
 
 //R - READ: GET /tarefa/lista/v2
 meuAppApis.get('/tarefa/lista/v2', async (req,res) => {
+    var arrayDeObjetos = []
     try {
         // Conecta ao servidor MongoDB
         await client.connect()
@@ -116,15 +114,16 @@ function lerDadosConexao() {
         console.log(`URL de Conexão: ${url}`);
         console.log(`Nome do Banco de Dados: ${dbName}`);
         console.log(`Nome da Coleção: ${collectionName}`);
+        console.log(`Servidores de DNS: ${dnsServers}`);
 
         // Retorna os valores em um objeto
-        return { url, dbName, collectionName };
+        return { url, dbName, collectionName, dnsServers };
     } catch (err) {
         console.error('Erro ao ler os dados de conexão:', err);
     }
 }
 
 //Define a porta de escuta do servidor web
-meuAppApis.listen(2025, () =>{
-    console.log('Servidor aberto')
+meuAppApis.listen(2026, () =>{
+    console.log('Servidor aberto na porta 2026')
 })

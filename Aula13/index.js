@@ -20,9 +20,6 @@ if (dnsServers.length > 0) {
 //Client de conexão no MongoDB
 const client = new MongoClient(url);
 
-//
-var arrayDeObjetos = []
-
 //meuAppApis
 const meuAppApis = express()
 meuAppApis.use(bodyParser.json())
@@ -66,6 +63,7 @@ meuAppApis.post('/tarefa/inserir/v2', async (req,res) => {
 
 //R - READ: GET /tarefa/lista/v2
 meuAppApis.get('/tarefa/lista/v2', async (req,res) => {
+    var arrayDeObjetos = []
     try {
         // Conecta ao servidor MongoDB
         await client.connect()
@@ -79,7 +77,6 @@ meuAppApis.get('/tarefa/lista/v2', async (req,res) => {
         
         for (let i = 0; i < tarefas.length; i++) {
             arrayDeObjetos[i] = tarefas[i]
-            const tarefa = tarefas[i]
         }
         console.log("Tarefas encontradas:")
         console.log(arrayDeObjetos)
@@ -209,6 +206,6 @@ function lerDadosConexao() {
 }
 
 //Define a porta de escuta do servidor web
-meuAppApis.listen(2025, () =>{
-    console.log('Servidor aberto')
+meuAppApis.listen(2026, () =>{
+    console.log('Servidor aberto na porta 2026')
 })
