@@ -30,5 +30,5 @@ prompt.get(['nota01', 'nota02', 'nota03', 'nota04', 'nota05', 'nota06', 'nota07'
     notas[9] = Number(result.nota10)
 
     //Saída dos resultados
-    console.log(`Array Notas ${notas}`)
+    console.log(`Array Notas: [ ${notas} ]`)
 })
