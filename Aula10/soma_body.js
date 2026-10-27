@@ -15,12 +15,12 @@ meuAppApis.get('/somabody', (req,res) => {
     const body = req.body 
     console.log(body)
 
-    let total = body.numero1 + body.numero2
+    let total = Number(body.numero1) + Number(body.numero2)
     res.send(`O total da Soma é ${total}`)
 })
 
 //Define a porta de escuta do servidor web
-meuAppApis.listen(2024, () =>{
+meuAppApis.listen(2027, () =>{
     console.log('Servidor aberto')
 })
 

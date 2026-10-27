@@ -12,7 +12,7 @@ meuAppApis.get('/somafixa', (req,res) => {
 })
 
 //Define a porta de escuta do servidor web
-meuAppApis.listen(2024, () =>{
+meuAppApis.listen(2027, () =>{
     console.log('Servidor aberto')
 })
 
